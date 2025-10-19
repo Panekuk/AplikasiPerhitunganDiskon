@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.Color;
 import java.awt.event.*;
 import java.text.DecimalFormat;
 
@@ -31,9 +32,63 @@ public class DiskonForm extends javax.swing.JFrame {
             sldDiskon.setValue(persen);
         });
         
+        // 🌿 WARNA TOMBOL
+        btnHitung.setBackground(new Color(76, 175, 80)); // Hijau
+        btnHitung.setForeground(Color.WHITE);
+
+        btnReset.setBackground(new Color(255, 235, 59)); // Kuning
+        btnReset.setForeground(Color.BLACK);
+
+        btnKeluar.setBackground(new Color(244, 67, 54)); // Merah
+        btnKeluar.setForeground(Color.WHITE);
+        
+        // 🌈 EFEK HOVER UNTUK TOMBOL
+        addHoverEffect(btnHitung, new Color(76, 175, 80), new Color(56, 142, 60));  // Hijau → hijau tua
+        addHoverEffect(btnReset, new Color(255, 235, 59), new Color(255, 213, 0));  // Kuning → kuning tua
+        addHoverEffect(btnKeluar, new Color(244, 67, 54), new Color(211, 47, 47));  // Merah → merah tua
+       
         btnHitung.addActionListener(e -> hitungDiskon());
-    }
     
+    
+        // Tombol Reset
+        btnReset.addActionListener(e -> {
+            txtHargaAsli.setText("");
+            txtKupon.setText("");
+            txtHargaAkhir.setText("");
+            txtHemat.setText("");
+            txtRiwayat.setText("");
+            cmbDiskon.setSelectedIndex(0);
+            sldDiskon.setValue(5);
+            txtHargaAsli.requestFocus();
+        });
+
+    // Tombol Keluar
+        btnKeluar.addActionListener(e -> {
+            int konfirmasi = JOptionPane.showConfirmDialog(
+                    this,
+                    "Apakah Anda yakin ingin keluar dari aplikasi?",
+                    "Konfirmasi Keluar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (konfirmasi == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
+        });
+         // Hasil tidak dapat diketik manual
+        txtHargaAkhir.setEditable(false);
+        txtHemat.setEditable(false);
+    }
+    private void addHoverEffect(JButton button, Color normalColor, Color hoverColor) {
+    button.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            button.setBackground(hoverColor);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            button.setBackground(normalColor);
+        }
+    });
+}
     private void hitungDiskon() {
     try {
         double hargaAsli = Double.parseDouble(txtHargaAsli.getText());
@@ -159,23 +214,23 @@ public class DiskonForm extends javax.swing.JFrame {
                                         .addComponent(txtKupon, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(123, 123, 123))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblHasil)
-                                            .addComponent(btnHitung))
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(45, 45, 45)
-                                                .addComponent(btnReset)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnKeluar)
-                                                .addGap(12, 12, 12))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(18, 18, 18)
-                                                .addComponent(txtHargaAkhir))))
+                                        .addComponent(lblHasil)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtHargaAkhir))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtHemat)))))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(btnHitung)
+                                            .addComponent(jLabel5))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtHemat))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(39, 39, 39)
+                                                .addComponent(btnReset)
+                                                .addGap(36, 36, 36)
+                                                .addComponent(btnKeluar)
+                                                .addGap(0, 0, Short.MAX_VALUE)))))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
